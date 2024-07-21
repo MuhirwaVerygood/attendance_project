@@ -1,25 +1,24 @@
-package org.example.attendancebackend.user;
+package org.example.attendancebackend.models;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.example.attendancebackend.user.Permission.*;
+import static org.example.attendancebackend.models.Permission.*;
 
 @RequiredArgsConstructor
 public enum Role {
 
-  USER(
+  FATHER(
           Set.of(
-                  USER_CREATE,
-                  USER_UPDATE,
-                  USER_READ,
-                  USER_DELETE
+                  FATHER_CREATE,
+                  FATHER_UPDATE,
+                  FATHER_READ,
+                  FATHER_DELETE
           )
   ),
   ADMIN(
@@ -28,10 +27,10 @@ public enum Role {
                   ADMIN_UPDATE,
                   ADMIN_DELETE,
                   ADMIN_CREATE,
-                  USER_READ,
-                  USER_UPDATE,
-                  USER_DELETE,
-                  USER_CREATE
+                  FATHER_READ,
+                  FATHER_UPDATE,
+                  FATHER_DELETE,
+                  FATHER_CREATE
           )
   ),
 

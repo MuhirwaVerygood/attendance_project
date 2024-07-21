@@ -1,6 +1,8 @@
-package org.example.attendancebackend.user;
+package org.example.attendancebackend.services;
 
 import lombok.RequiredArgsConstructor;
+import org.example.attendancebackend.models.User;
+import org.example.attendancebackend.repositories.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

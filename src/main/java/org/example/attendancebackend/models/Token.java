@@ -1,11 +1,10 @@
-package org.example.attendancebackend.token;
+package org.example.attendancebackend.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.attendancebackend.user.User;
 
 @Data
 @Builder

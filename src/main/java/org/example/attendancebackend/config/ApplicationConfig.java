@@ -1,7 +1,7 @@
 package org.example.attendancebackend.config;
 import lombok.RequiredArgsConstructor;
 import org.example.attendancebackend.auditing.ApplicationAuditAware;
-import org.example.attendancebackend.user.UserRepository;
+import org.example.attendancebackend.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

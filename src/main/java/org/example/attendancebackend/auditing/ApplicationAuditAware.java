@@ -1,5 +1,5 @@
 package org.example.attendancebackend.auditing;
-import org.example.attendancebackend.user.User;
+import org.example.attendancebackend.models.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

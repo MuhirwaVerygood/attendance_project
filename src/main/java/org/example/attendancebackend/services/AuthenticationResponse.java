@@ -1,4 +1,4 @@
-package org.example.attendancebackend.auth;
+package org.example.attendancebackend.services;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

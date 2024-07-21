@@ -1,6 +1,8 @@
-package org.example.attendancebackend.user;
+package org.example.attendancebackend.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.attendancebackend.services.ChangePasswordRequest;
+import org.example.attendancebackend.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package org.example.attendancebackend.user;
+package org.example.attendancebackend.services;
 
 import lombok.Builder;
 import lombok.Getter;

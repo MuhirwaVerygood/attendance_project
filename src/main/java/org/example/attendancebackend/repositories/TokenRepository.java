@@ -1,5 +1,6 @@
-package org.example.attendancebackend.token;
+package org.example.attendancebackend.repositories;
 
+import org.example.attendancebackend.models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

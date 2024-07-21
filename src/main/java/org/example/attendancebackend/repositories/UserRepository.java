@@ -1,5 +1,6 @@
-package org.example.attendancebackend.user;
+package org.example.attendancebackend.repositories;
 
+import org.example.attendancebackend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

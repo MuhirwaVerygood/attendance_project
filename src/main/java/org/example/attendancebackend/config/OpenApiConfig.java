@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "verygoodmuhirwa2@gmail.com",
                         url = "https://verygoodcoding.com"
                 ),
-                description = "OpenApi documentation for Spring Security",
+                description = "OpenApi documentation for church attendance project",
                 title = "OpenApi specification - Verygood",
                 version = "1.0",
                 license = @License(

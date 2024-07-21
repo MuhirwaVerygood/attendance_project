@@ -6,13 +6,13 @@ spring:
   application:
     name: attendance-backend
   datasource:
-    url: jdbc:postgresql://localhost:5433/church_attendance
-    username: postgres
+    url: jdbc:postgresql://localhost:5433/church
+    username: verygood
     password: 1234
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
