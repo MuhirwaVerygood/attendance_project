@@ -13,9 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,16 +24,27 @@ public class AttendanceService {
     private final AttendanceRepository repository;
     private final MemberRepository memberRepository;
     private final FamilyRepository familyRepository;
+
     public ResponseEntity<List<Attendance>> getAllAttendances() {
         return ResponseEntity.status(200).body(repository.findAll());
-    };
+    }
 
     public ResponseEntity<String> addAttendance(AttendanceRequest request) {
-        Attendance attendance = new Attendance();
         for (AttendanceObject ao : request.getAttendanceObject()) {
             if (memberRepository.existsById(ao.getMemberId())) {
                 Family family = memberRepository.findById(ao.getMemberId()).get().getFamily();
-                attendance.setFamily(family);
+                LocalDate today = LocalDate.now();
+                Optional<Attendance> existingAttendanceOpt = repository.findByFamilyAndIssuedDate(family, today.atStartOfDay());
+
+                Attendance attendance;
+                if (existingAttendanceOpt.isPresent()) {
+                    attendance = existingAttendanceOpt.get();
+                } else {
+                    attendance = new Attendance();
+                    attendance.setFamily(family);
+                    attendance.setIssuedDate(today.atStartOfDay());
+                }
+
                 attendance.setAbashyitsiCount(request.getVisitors());
                 if (ao.getYaje().equals(true)) {
                     attendance.setYajeCount(attendance.getYajeCount() + 1);
@@ -49,7 +61,6 @@ public class AttendanceService {
                 if (ao.getYarafashije().equals(true)) {
                     attendance.setYarafashijeCount(attendance.getYarafashijeCount() + 1);
                 }
-
                 if (ao.getYarafashijwe().equals(true)) {
                     attendance.setYarafashijweCount(attendance.getYarafashijweCount() + 1);
                 }
@@ -59,33 +70,33 @@ public class AttendanceService {
                 if (ao.getYatangiyeIsabato().equals(true)) {
                     attendance.setYatangiyeIsabatoCount(attendance.getYatangiyeIsabatoCount() + 1);
                 }
+
+                repository.save(attendance);
             } else {
                 return ResponseEntity.status(404).body("Member with that id not found");
             }
         }
-        attendance.setIssuedDate(LocalDateTime.now());
-        repository.save(attendance);
         return ResponseEntity.ok("Attendance added successfully");
     }
 
-
     public ResponseEntity<List<Attendance>> getAllAttendancesByFamilyId(Integer familyId) {
-        try{
-            if(familyRepository.existsById(familyId)){
-                return ResponseEntity.ok(familyRepository.findById(familyId).get().getAttendances());
-            }else{
+        try {
+            if (familyRepository.existsById(familyId)) {
+                List<Attendance> attendancesByFamily =  repository.findByFamilyId(familyId);
+                return ResponseEntity.ok(attendancesByFamily);
+            } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Family not found");
             }
-        }catch (ResponseStatusException e){
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Family not found");
+        } catch (ResponseStatusException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Family not found");
         }
     }
 
     public ResponseEntity<String> deleteAttendanceById(Integer attendanceId) {
-        if(repository.existsById(attendanceId)){
+        if (repository.existsById(attendanceId)) {
             repository.deleteById(attendanceId);
-            return new ResponseEntity<>("Attendance added successfully",HttpStatus.OK );
-        }else{
+            return new ResponseEntity<>("Attendance added successfully", HttpStatus.OK);
+        } else {
             return ResponseEntity.status(404).body("Attendance not found");
         }
     }
