@@ -8,7 +8,6 @@ import lombok.Data;
 public class AttendanceObject {
     private Integer memberId;
     private Boolean yaje =false;
-
     private Boolean yarasuye = false;
     private Boolean yarasuwe = false;
     private Boolean ararwaye = false;

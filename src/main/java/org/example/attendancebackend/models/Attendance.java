@@ -1,5 +1,6 @@
 package org.example.attendancebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Family family;
     private Integer yajeCount=0;
     private Integer yarasuyeCount=0;
