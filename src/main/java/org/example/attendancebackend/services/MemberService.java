@@ -10,6 +10,7 @@ import org.example.attendancebackend.repositories.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -70,5 +71,33 @@ public class MemberService {
                 .familyId(String.valueOf(member.getFamily().getId()))
                 .familyName(member.getFamily().getFamilyName())
                 .build();
+    }
+
+    public ResponseEntity<String> deleteMember(Integer memberId) {
+      if(repository.existsById(memberId)){
+          Family family = repository.findById(memberId).get().getFamily();
+          family.setMemberCount(family.getMemberCount() - 1);
+          familyRepository.save(family);
+          repository.deleteById(memberId);
+          return ResponseEntity.ok("Member deleted successfully");
+      }else{
+          return ResponseEntity.status(400).body("A member not found");
+      }
+    }
+
+    public ResponseEntity<String> updateMember(Integer id, MemberRequest request) {
+        if(repository.existsById(id)){
+            Optional<Family> familyExists = familyRepository.findById(request.getFamilyId());
+            Optional<Members> existingMemberOptional = repository.findById(id);
+            Members existingMember=  existingMemberOptional.get();
+            existingMember.setFirstname(request.getFirstname());
+            existingMember.setLastname(request.getLastname());
+            existingMember.setClassName(request.getClassName());
+            existingMember.setFamily(familyExists.get());
+            repository.save(existingMember);
+            return ResponseEntity.ok("Member updated successfully");
+        }else{
+            return ResponseEntity.status(404).body("Member not found");
+        }
     }
 }

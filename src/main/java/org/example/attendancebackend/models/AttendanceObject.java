@@ -1,13 +1,19 @@
 package org.example.attendancebackend.models;
 
+import jakarta.persistence.Embeddable;
+import lombok.Data;
+
+@Data
+@Embeddable
 public class AttendanceObject {
-    private String firstname;
-    private String lastname;
-    private Boolean yaje;
-    private Boolean yarasuye;
-    private Boolean yarasuwe;
-    private Boolean yarafashije;
-    private Boolean yarafashijwe;
-    private Boolean yatangiyeIsabato;
-    private Family family;
+    private Integer memberId;
+    private Boolean yaje =false;
+
+    private Boolean yarasuye = false;
+    private Boolean yarasuwe = false;
+    private Boolean ararwaye = false;
+    private Boolean yarafashije = false;
+    private Boolean yarafashijwe = false;
+    private Boolean yatangiyeIsabato = false;
+    private Boolean yize7 = false;
 }

@@ -1,7 +1,9 @@
 package org.example.attendancebackend.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.attendancebackend.models.MemberDto;
 import org.example.attendancebackend.models.Members;
@@ -18,18 +20,20 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
 @RequestMapping("/api/v1/members")
 @RequiredArgsConstructor
 
-
+@Tag(name="Member Controllers", description = "Operations about members")
 public class MemberControllers {
     private final MemberService service;
 
     @GetMapping
     @PreAuthorize("hasAuthority('admin:read')")
+    @Operation(summary = "Get all members", description = "Fetch a list of all members")
     public List<MemberDto> getAllMembers(){
 
         return service.getAllMembers();
     }
 
     @GetMapping("/{family-id}")
+    @Operation(summary = "Get all members by family id", description = "Fetch a list of all members by a family id")
     public List<MemberDto> getMembersByFamilyId(@PathVariable("family-id") Integer id){
         return service.getMembersByFamilyId(id);
     }
@@ -47,7 +51,21 @@ public class MemberControllers {
     }
     )
     @PostMapping
+    @Operation(summary = "Add a member", description = "Add members in a family")
     public ResponseEntity<String> addMember(@RequestBody MemberRequest request){
         return service.addMember(request);
+    }
+
+    @DeleteMapping("/{member-id}")
+    @Operation(summary = "Delete a member by id", description = "Delete a member by a member id")
+    public ResponseEntity<String> deleteMember(@PathVariable("member-id") Integer memberId){
+        return service.deleteMember(memberId);
+    }
+
+
+    @PutMapping("/{member-id}")
+    @Operation(summary = "Update a member by id", description = "Update a member by id")
+    public ResponseEntity<String> updateMember( @PathVariable("member-id") Integer id,  @RequestBody MemberRequest request){
+        return service.updateMember(id, request);
     }
 }

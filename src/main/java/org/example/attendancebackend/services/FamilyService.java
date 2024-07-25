@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +49,38 @@ public class FamilyService {
         }
 
 
+    }
+
+    public ResponseEntity<Family> getFamilyById(Integer familyId) {
+        try{
+            if(familyRepository.existsById(familyId)){
+                return ResponseEntity.ok(familyRepository.findById(familyId).get());
+            }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Family with that id not found");
+            }
+        }catch (ResponseStatusException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Family not found");
+        }
+    }
+
+    public ResponseEntity<String> deleteFamilyById(Integer familyId) {
+        if(familyRepository.existsById(familyId)){
+            familyRepository.deleteById(familyId);
+            return  ResponseEntity.ok("Family deleted successfully");
+        }else{
+            return ResponseEntity.status(404).body("Family not found");
+        }
+    }
+
+    public ResponseEntity<String> updateFamilyById(Integer familyId , FamilyRequest request) {
+        if(familyRepository.existsById(familyId)){
+            Family family = familyRepository.findById(familyId).get();
+            family.setFamilyName(request.getFamilyName());
+            family.setMembers(Arrays.asList(request.getMembers()));
+            familyRepository.save(family);
+            return  ResponseEntity.ok("Family updated successfully");
+        }else{
+            return ResponseEntity.status(404).body("Family not found");
+        }
     }
 }

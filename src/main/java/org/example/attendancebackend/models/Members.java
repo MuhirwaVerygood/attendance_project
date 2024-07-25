@@ -25,18 +25,4 @@ public class Members {
     @JoinColumn(name = "family_id")
     @JsonIgnore
     private Family family;
-
-    //more about  attendance
-    @JsonIgnore
-    private Boolean yaje;
-    @JsonIgnore
-    private Boolean yarasuye;
-    @JsonIgnore
-    private Boolean yarasuwe;
-    @JsonIgnore
-    private Boolean yarafashije;
-    @JsonIgnore
-    private Boolean yarafashijwe;
-    @JsonIgnore
-    private Boolean yatangiyeIsabato;
 }

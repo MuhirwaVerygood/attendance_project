@@ -20,14 +20,14 @@ public class Attendance {
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     private Family family;
-    private Integer yajeCount;
-    private Integer yarasuyeCount;
-    private Integer yarasuweCount;
-    private Integer yarafashijeCount;
-    private Integer yarafashijweCount;
-    private Integer yize7Count;
-    private Integer yatangiyeIsabatoCount;
-    private Integer ararwayeCount;
-    private Integer abashyitsiCount;
+    private Integer yajeCount=0;
+    private Integer yarasuyeCount=0;
+    private Integer yarasuweCount=0;
+    private Integer yarafashijeCount=0;
+    private Integer yarafashijweCount=0;
+    private Integer yize7Count=0;
+    private Integer yatangiyeIsabatoCount=0;
+    private Integer ararwayeCount=0;
+    private Integer abashyitsiCount=0;
     private LocalDateTime issuedDate;
 }
