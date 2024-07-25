@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/attendances")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 @Tag(name="Attendance Controllers", description = "Operations about attendances")
 public class AttendanceControllers {
     private final AttendanceService service;
